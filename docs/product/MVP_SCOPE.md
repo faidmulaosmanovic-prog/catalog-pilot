@@ -125,6 +125,6 @@ Documented also in the planning summary: prefer Shopify-only export first (keep 
 
 ## 6. Consistency with engineering phases
 
-MVP maps to Development Roadmap **Phases 1–8 + 10–11** (AI = Phase 9 deferred to V1.1). Billing can parallelize late Phase 7–8 but must land before public launch (Phase 12).
+MVP maps to Development Roadmap **Phases 0–9** with database gates **DB-0 → DB-8** (AI = DB-9 / Phase 11 deferred to V1.1). Each domain is built **schema → API → UI**.
 
-See [DEVELOPMENT_ROADMAP.md](../development/DEVELOPMENT_ROADMAP.md).
+See [DEVELOPMENT_ROADMAP.md](../development/DEVELOPMENT_ROADMAP.md) and [DATABASE_PHASES.md](../development/DATABASE_PHASES.md).

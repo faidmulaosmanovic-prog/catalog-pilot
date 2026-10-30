@@ -336,6 +336,7 @@ See [MARKET_ASSUMPTIONS.md](../research/MARKET_ASSUMPTIONS.md) and final summary
 | Adapters | [../architecture/MARKETPLACE_ADAPTERS.md](../architecture/MARKETPLACE_ADAPTERS.md) |
 | Security | [../architecture/SECURITY.md](../architecture/SECURITY.md) |
 | Roadmap | [../development/DEVELOPMENT_ROADMAP.md](../development/DEVELOPMENT_ROADMAP.md) |
+| Database phases | [../development/DATABASE_PHASES.md](../development/DATABASE_PHASES.md) |
 
 ---
 

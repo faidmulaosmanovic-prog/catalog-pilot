@@ -1,9 +1,24 @@
 # CatalogPilot — Database Schema
 
-**Version:** 1.0  
+**Version:** 1.1  
 **Engine:** PostgreSQL 15+  
 **ORM:** Drizzle  
 **Tenancy:** Shared database, shared schema, **mandatory `organization_id`** on tenant-owned tables.
+
+**Delivery order:** Implement tables by **DB phase** (database → API → UI). See [DATABASE_PHASES.md](../development/DATABASE_PHASES.md).
+
+| DB Phase | Tables |
+|----------|--------|
+| DB-0 | Tooling only |
+| DB-1 | users, auth auxiliaries, organizations, organization_members, organization_invites |
+| DB-2 | activity_logs, job_runs |
+| DB-3 | categories, products, product_variants, product_attributes, product_images, product_revisions |
+| DB-4 | imports, import_mappings, import_rows |
+| DB-5 | validation_rules, validation_runs, validation_issues |
+| DB-6 | bulk_edit_jobs, bulk_edit_changes |
+| DB-7 | channels, marketplace_templates, channel_listings, export_jobs |
+| DB-8 | plans, plan_limits, subscriptions, usage_records |
+| DB-9 (V1.1) | ai_generations |
 
 ---
 

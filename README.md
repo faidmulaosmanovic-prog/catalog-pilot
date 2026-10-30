@@ -80,6 +80,7 @@ MVP delivers **file export templates**, not official marketplace API sync.
 ### Development
 
 - [Development roadmap](docs/development/DEVELOPMENT_ROADMAP.md)  
+- [Database phases (DB → frontend)](docs/development/DATABASE_PHASES.md)  
 - [Implementation checklist](docs/development/IMPLEMENTATION_CHECKLIST.md)  
 - [Testing strategy](docs/development/TESTING_STRATEGY.md)  
 - [GitHub issues breakdown](docs/development/GITHUB_ISSUES.md)  

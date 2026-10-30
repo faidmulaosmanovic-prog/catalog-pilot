@@ -1,172 +1,191 @@
 # CatalogPilot — Implementation Checklist
 
-**Version:** 1.0  
-**Usage:** Work top-to-bottom. Do not start a phase until dependencies are checked.
+**Version:** 1.1  
+**Usage:** Work **database → service → API → UI** within each domain. Complete the matching **DB-*** phase before frontend for that domain.  
+See [DATABASE_PHASES.md](./DATABASE_PHASES.md) and [DEVELOPMENT_ROADMAP.md](./DEVELOPMENT_ROADMAP.md).
 
 ---
 
 ## Global gates
 
-- [ ] Planning docs approved (this documentation set)  
-- [ ] Phase 1 hosting spike decision recorded  
+- [ ] Planning docs approved  
+- [ ] Hosting spike decision recorded  
 - [ ] No marketplace API claims in UI copy  
 - [ ] AI deferred until catalog loop stable  
+- [ ] Every tenant table has `organization_id`  
 
 ---
 
-## Phase 1 — Foundation
+## DB-0 + Phase 0 — Foundation
 
 - [ ] Next.js + TS + Tailwind + shadcn scaffold  
 - [ ] ESLint + Prettier + Vitest  
-- [ ] Drizzle schema bootstrap + migrate  
-- [ ] Neon (or Postgres) connected via env  
+- [ ] Drizzle + migrate scripts (**DB-0**)  
+- [ ] Neon (or Postgres) via `DATABASE_URL`  
+- [ ] CI applies migrations  
 - [ ] R2 upload/download helper + signed URL  
 - [ ] Queue producer/consumer spike  
-- [ ] GitHub Actions CI  
-- [ ] Sentry init  
-- [ ] PostHog init (dev key)  
-- [ ] `.env.example` documented  
+- [ ] Sentry + PostHog stubs  
+- [ ] `.env.example`  
 - [ ] ADR: Cloudflare OpenNext vs fallback  
 
 ---
 
-## Phase 2 — Auth & orgs
+## DB-1 — Identity & tenancy (database first)
+
+- [ ] Migration: users + Better Auth tables  
+- [ ] Migration: organizations, organization_members, organization_invites  
+- [ ] Unique slug / membership constraints  
+- [ ] Integration tests for FKs  
+
+### Then Phase 2 — Auth & orgs (API → UI)
 
 - [ ] Better Auth email/password  
-- [ ] Email verification flow  
-- [ ] Password reset flow  
+- [ ] Email verification + password reset  
 - [ ] Profile view/edit  
-- [ ] Create organization  
-- [ ] Org switcher  
+- [ ] Create organization + switcher  
 - [ ] Invites create/accept  
-- [ ] Roles enforced in middleware/services  
+- [ ] Role middleware  
 - [ ] Cross-tenant access tests  
+- [ ] Auth/org UI screens  
 
 ---
 
-## Phase 3 — Product model
+## DB-2 — Audit & jobs
 
-- [ ] Migrations for products, variants, images, categories, revisions, activity_logs  
+- [ ] Migration: activity_logs  
+- [ ] Migration: job_runs  
+- [ ] ActivityLogService helper  
+
+---
+
+## DB-3 — Catalog core (database first)
+
+- [ ] Migration: categories  
+- [ ] Migration: products (+ indexes, SKU unique per org)  
+- [ ] Migration: product_variants, product_attributes, product_images  
+- [ ] Migration: product_revisions  
 - [ ] ProductService CRUD org-scoped  
-- [ ] SKU uniqueness per org  
-- [ ] Barcode fields  
-- [ ] attributes_json  
-- [ ] Soft delete  
-- [ ] Revision on update  
+- [ ] Soft delete + revision on update  
 
----
+### Then Catalog API → UI
 
-## Phase 4 — CSV import
-
-- [ ] Upload API + R2 store  
-- [ ] Encoding/BOM detection  
-- [ ] Delimiter detection  
-- [ ] Header detection  
-- [ ] Suggested mapping  
-- [ ] Manual mapping UI  
-- [ ] Preview endpoint/UI  
-- [ ] Pre-commit validation  
-- [ ] Confirm + enqueue  
-- [ ] Worker batch upsert  
-- [ ] Error report CSV  
-- [ ] Import history UI  
-- [ ] Soft rollback  
-- [ ] Single-active-import lock  
-- [ ] Idempotency-Key on confirm  
-- [ ] Fixture tests (BOM, quotes, delimiters, dup SKUs, large file)  
-
----
-
-## Phase 5 — Catalog UI
-
-- [ ] Products table  
-- [ ] Search/filter/sort/pagination  
-- [ ] Detail/edit pages  
-- [ ] Variants basic UI  
+- [ ] Products REST endpoints  
+- [ ] Products list (search/filter/sort/pagination)  
+- [ ] Detail/edit + variants basic UI  
 - [ ] Image URL management  
 - [ ] Empty/loading/error states  
 - [ ] History panel  
 
 ---
 
-## Phase 6 — Validation
+## DB-4 — Import (database first)
 
+- [ ] Migration: imports, import_mappings, import_rows  
+- [ ] FK products.source_import_id → imports  
+- [ ] Status + content hash indexes  
+
+### Then Import API → UI
+
+- [ ] Upload + R2 + hash  
+- [ ] Encoding/BOM + delimiter detection  
+- [ ] Mapping UI/API  
+- [ ] Preview + validation  
+- [ ] Confirm + enqueue + worker batches  
+- [ ] Error report + history  
+- [ ] Soft rollback  
+- [ ] Single-active-import lock  
+- [ ] Idempotency-Key on confirm  
+- [ ] Fixture tests (BOM, quotes, delimiters, dup SKUs, large file)  
+- [ ] Import wizard UI  
+
+---
+
+## DB-5 — Data quality (database first)
+
+- [ ] Migration: validation_rules, validation_runs, validation_issues  
 - [ ] Seed system rules  
+
+### Then Validation API → UI
+
 - [ ] Rule runner job  
-- [ ] Issue persistence  
 - [ ] Quality score update  
-- [ ] Data Quality UI  
-- [ ] Severity filters  
-- [ ] Ignore warnings  
-- [ ] Re-run  
+- [ ] Issues API  
+- [ ] Data Quality UI (filters, ignore, re-run)  
 - [ ] Post-import validation hook  
 
 ---
 
-## Phase 7 — Bulk editor
+## DB-6 — Bulk editor (database first)
+
+- [ ] Migration: bulk_edit_jobs, bulk_edit_changes  
+
+### Then Bulk API → UI
 
 - [ ] Preview API  
-- [ ] Apply job  
-- [ ] Operations: replace/append/prepend/price/brand/category/attributes/normalize/status  
-- [ ] Change snapshots  
+- [ ] Apply worker + operations set  
 - [ ] Rollback  
-- [ ] UI wizard + confirmations  
+- [ ] Bulk Editor UI + confirmations  
 - [ ] Audit logs  
 
 ---
 
-## Phase 8 — Exports
+## DB-7 — Channels & export (database first)
 
-- [ ] MarketplaceAdapter interface  
-- [ ] ShopifyCsvAdapter + template seed  
-- [ ] AmazonCsvAdapter + template seed  
-- [ ] Export job worker  
+- [ ] Migration: channels, marketplace_templates, channel_listings, export_jobs  
+- [ ] Seed shopify + amazon csv_template 2026.1  
+
+### Then Export API → UI
+
+- [ ] MarketplaceAdapter interface + registry  
+- [ ] ShopifyCsvAdapter + AmazonCsvAdapter  
+- [ ] Export job worker + signed download  
 - [ ] Pre-export validation  
-- [ ] Signed download  
 - [ ] Export history UI  
 - [ ] Golden file tests  
 
 ---
 
-## Phase 9 — AI (V1.1)
+## DB-8 — Billing (database first)
 
-- [ ] OpenAI client + JSON schema  
-- [ ] ai_generations table flows  
-- [ ] Review/approve/reject UI  
-- [ ] Usage credits  
-- [ ] Prompt policy: no invented specs  
-- [ ] Cost tracking fields  
+- [ ] Migration: plans, plan_limits, subscriptions, usage_records  
+- [ ] Seed starter/growth/pro + limits (AI credits = 0 until V1.1)  
 
----
+### Then Billing API → UI
 
-## Phase 10 — Billing
-
-- [ ] plans + plan_limits seeds  
 - [ ] Stripe customer per org  
-- [ ] Checkout session  
-- [ ] Customer portal  
+- [ ] Checkout + portal  
 - [ ] Webhook verify + idempotency  
-- [ ] Trial support  
-- [ ] Usage meters  
+- [ ] Trial + usage meters  
 - [ ] Gate import/export/product create  
 - [ ] Billing UI  
 
 ---
 
-## Phase 11 — Production
+## Phase 9 — Production
 
 - [ ] Rate limits  
-- [ ] Backup restore drill  
 - [ ] Sentry alerts  
-- [ ] Privacy/Terms pages  
+- [ ] Backup restore drill  
+- [ ] Legal pages  
 - [ ] Security checklist review  
 - [ ] Sample CSV + onboarding checklist  
 
 ---
 
-## Phase 12 — Launch
+## Phase 10 — Launch
 
 - [ ] Pilot outreach list  
 - [ ] Feedback log  
 - [ ] Bug triage board  
 - [ ] Decide Product Hunt timing  
+
+---
+
+## DB-9 + AI (V1.1 only)
+
+- [ ] Migration: ai_generations  
+- [ ] OpenAI client + JSON schema  
+- [ ] Review/approve/reject UI  
+- [ ] Usage credits + cost fields  
+- [ ] No-invented-specs evals  
