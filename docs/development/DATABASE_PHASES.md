@@ -197,10 +197,12 @@ flowchart TD
 **Effort:** 4–6 sessions  
 
 **Acceptance criteria**
-- [ ] Duplicate SKU in same org fails at DB or service+DB  
-- [ ] Soft delete via `deleted_at` supported  
-- [ ] Updating a product writes a `product_revisions` row  
-- [ ] Cross-org product fetch by id returns nothing when scoped correctly  
+- [x] Duplicate SKU in same org fails at DB or service+DB  
+- [x] Soft delete via `deleted_at` supported  
+- [x] Updating a product writes a `product_revisions` row  
+- [x] Cross-org product fetch by id returns nothing when scoped correctly  
+
+**Status:** Completed 2026-10-30 — `0004_db3_catalog_core.sql` (numbered 0004 because Phase 2 auth tables used 0003). `source_import_id` is a nullable uuid with no foreign key until DB-4. Product SKU uniqueness is partial (`deleted_at IS NULL`). Variant SKUs are unique per organization; soft-deleting a product removes its variant rows so those SKUs can be reused. `hasIssues` stays out of the list API until DB-5.
 
 **Tests:** unique SKU; cascade/restrict FK behavior documented; list query uses indexes (explain optional)  
 

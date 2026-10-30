@@ -29,6 +29,13 @@
       "when": 1793392989253,
       "tag": "0003_phase2_auth_tables",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1793395051812,
+      "tag": "0004_db3_catalog_core",
+      "breakpoints": true
     }
   ]
 }

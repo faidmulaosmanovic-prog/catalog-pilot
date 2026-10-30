@@ -2,6 +2,7 @@ import { APIError } from "better-auth/api";
 import { ZodError } from "zod";
 
 import { auth } from "@/server/auth/auth";
+import { canMutateCatalog } from "@/server/auth/roles";
 import type { MemberRole } from "@/server/db/schema/constants";
 import { db } from "@/server/db/client";
 import { clientIp, hitRateLimit } from "@/server/http/rate-limit";
@@ -140,6 +141,21 @@ export async function requireOrgAccess(
     };
   }
   return { ok: true as const, session: authResult.session, membership };
+}
+
+export async function requireCatalogAccess(request: Request, mutate: boolean) {
+  const organizationId = request.headers.get("x-organization-id");
+  if (!organizationId) {
+    return {
+      ok: false as const,
+      response: jsonError(400, "BAD_REQUEST", "X-Organization-Id is required"),
+    };
+  }
+  return requireOrgAccess(
+    request,
+    organizationId,
+    mutate ? canMutateCatalog : () => true,
+  );
 }
 
 export function publicUser(user: {

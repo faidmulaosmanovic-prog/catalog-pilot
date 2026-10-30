@@ -29,7 +29,10 @@ async function WorkspaceHome() {
       <h1 className="text-2xl font-semibold">Workspace</h1>
       {active ? (
         <p className="text-sm">
-          Active organization: <span className="font-medium">{active.name}</span> ({active.role})
+          Active organization: <span className="font-medium">{active.name}</span> ({active.role}).{" "}
+          <Link className="underline" href="/app/products">
+            Open products
+          </Link>
         </p>
       ) : (
         <p className="text-sm">

@@ -7,6 +7,12 @@ export async function resetDatabase(db: Database) {
     truncate table
       activity_logs,
       job_runs,
+      product_revisions,
+      product_images,
+      product_attributes,
+      product_variants,
+      products,
+      categories,
       organization_invites,
       organization_members,
       organizations,

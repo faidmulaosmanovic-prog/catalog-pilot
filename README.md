@@ -4,7 +4,7 @@
 
 CatalogPilot helps ecommerce businesses clean, organize, validate, and prepare product catalogs for multiple sales channels — without spending hours managing spreadsheets.
 
-> **Status:** Implementation started — **Phase 2 auth and organizations** is in place. Catalog features are not built yet.
+> **Status:** Implementation started — **DB-3 catalog** is in place (products, variants, images, revisions). Next schema phase is DB-4 import.
 
 ---
 
@@ -67,7 +67,7 @@ pnpm dev          # http://localhost:3000
 
 Delivery order is **schema → API → UI**. See:
 
-- [DATABASE_PHASES.md](docs/development/DATABASE_PHASES.md) — **Phase 2 auth is in place; next schema phase is DB-3 catalog**
+- [DATABASE_PHASES.md](docs/development/DATABASE_PHASES.md) — **DB-3 catalog is in place; next schema phase is DB-4 import**
 - [DEVELOPMENT_ROADMAP.md](docs/development/DEVELOPMENT_ROADMAP.md)
 
 | Phase | Status |
@@ -76,7 +76,8 @@ Delivery order is **schema → API → UI**. See:
 | DB-1 Identity & tenancy | Done |
 | Phase 2 Auth & organizations | Done |
 | DB-2 Audit & jobs | Done |
-| DB-3 … DB-8 | Planned |
+| DB-3 Catalog core | Done |
+| DB-4 … DB-8 | Planned |
 | DB-9 AI | V1.1 |
 
 ---

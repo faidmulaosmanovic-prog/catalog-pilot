@@ -15,3 +15,11 @@ export {
 } from "./identity";
 export { activityLogs, jobRuns } from "./audit";
 export { sessions, accounts, verifications } from "./auth-tables";
+export {
+  categories,
+  products,
+  productVariants,
+  productAttributes,
+  productImages,
+  productRevisions,
+} from "./catalog";

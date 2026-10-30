@@ -10,3 +10,12 @@ export const JOB_RUN_STATUSES = [
   "failed",
 ] as const;
 export type JobRunStatus = (typeof JOB_RUN_STATUSES)[number];
+
+export const PRODUCT_STATUSES = ["draft", "active", "archived"] as const;
+export type ProductStatus = (typeof PRODUCT_STATUSES)[number];
+
+export const BARCODE_TYPES = ["upc", "ean", "gtin", "other"] as const;
+export type BarcodeType = (typeof BARCODE_TYPES)[number];
+
+export const IMAGE_STATUSES = ["pending", "valid", "invalid"] as const;
+export type ImageStatus = (typeof IMAGE_STATUSES)[number];

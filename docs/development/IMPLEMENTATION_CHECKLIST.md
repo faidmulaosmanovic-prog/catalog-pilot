@@ -61,21 +61,21 @@ See [DATABASE_PHASES.md](./DATABASE_PHASES.md) and [DEVELOPMENT_ROADMAP.md](./DE
 
 ## DB-3 — Catalog core (database first)
 
-- [ ] Migration: categories  
-- [ ] Migration: products (+ indexes, SKU unique per org)  
-- [ ] Migration: product_variants, product_attributes, product_images  
-- [ ] Migration: product_revisions  
-- [ ] ProductService CRUD org-scoped  
-- [ ] Soft delete + revision on update  
+- [x] Migration: categories  
+- [x] Migration: products (+ indexes, SKU unique per org)  
+- [x] Migration: product_variants, product_attributes, product_images  
+- [x] Migration: product_revisions  
+- [x] ProductService CRUD org-scoped  
+- [x] Soft delete + revision on update  
 
 ### Then Catalog API → UI
 
-- [ ] Products REST endpoints  
-- [ ] Products list (search/filter/sort/pagination)  
-- [ ] Detail/edit + variants basic UI  
-- [ ] Image URL management  
-- [ ] Empty/loading/error states  
-- [ ] History panel  
+- [x] Products REST endpoints  
+- [x] Products list (search/filter/sort/pagination)  
+- [x] Detail/edit + variants basic UI  
+- [x] Image URL management  
+- [x] Empty/loading/error states  
+- [x] History panel  
 
 ---
 
