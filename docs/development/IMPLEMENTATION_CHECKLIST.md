@@ -33,10 +33,10 @@ See [DATABASE_PHASES.md](./DATABASE_PHASES.md) and [DEVELOPMENT_ROADMAP.md](./DE
 
 ## DB-1 — Identity & tenancy (database first)
 
-- [ ] Migration: users + Better Auth tables  
-- [ ] Migration: organizations, organization_members, organization_invites  
-- [ ] Unique slug / membership constraints  
-- [ ] Integration tests for FKs  
+- [x] Migration: users, organizations, organization_members, organization_invites  
+- [ ] Better Auth tables (`sessions`, `accounts`, `verifications`) — Phase 2, generated with the auth install  
+- [x] Unique slug / membership constraints  
+- [x] Integration tests for FKs  
 
 ### Then Phase 2 — Auth & orgs (API → UI)
 
@@ -53,9 +53,9 @@ See [DATABASE_PHASES.md](./DATABASE_PHASES.md) and [DEVELOPMENT_ROADMAP.md](./DE
 
 ## DB-2 — Audit & jobs
 
-- [ ] Migration: activity_logs  
-- [ ] Migration: job_runs  
-- [ ] ActivityLogService helper  
+- [x] Migration: activity_logs  
+- [x] Migration: job_runs  
+- [x] ActivityLogService helper  
 
 ---
 

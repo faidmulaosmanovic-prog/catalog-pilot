@@ -127,9 +127,12 @@ flowchart TD
 **Effort:** 3–5 sessions (schema + auth wiring often combined)  
 
 **Acceptance criteria**
-- [ ] Cannot insert `organization_members` without valid org + user  
-- [ ] Integration test: two orgs, membership isolated  
-- [ ] Role column restricted to `owner|admin|editor|viewer` (check constraint or app enum + tests)  
+- [x] Cannot insert `organization_members` without valid org + user  
+- [x] Integration test: two orgs, membership isolated  
+- [x] Role column restricted to `owner|admin|editor|viewer` (check constraint or app enum + tests)  
+- [ ] Better Auth `sessions`, `accounts`, `verifications` — deferred to Phase 2 so they are generated from the auth config instead of hand-copied  
+
+**Status:** Tenancy schema completed 2026-10-30 (`0001_db1_identity_tenancy.sql`). Auth auxiliary tables are still Phase 2.
 
 **Tests:** FK integrity; unique membership; invite token hash stored (not raw token)  
 
@@ -158,8 +161,10 @@ flowchart TD
 **Effort:** 1–2 sessions  
 
 **Acceptance criteria**
-- [ ] Insert activity log scoped by `organization_id`  
-- [ ] `job_runs` can represent `queued|processing|completed|failed`  
+- [x] Insert activity log scoped by `organization_id`  
+- [x] `job_runs` can represent `queued|processing|completed|failed`  
+
+**Status:** Completed 2026-10-30 — `0002_db2_audit_jobs.sql`, `recordActivity` / `listActivityLogs`, and job run status helpers.  
 
 ---
 

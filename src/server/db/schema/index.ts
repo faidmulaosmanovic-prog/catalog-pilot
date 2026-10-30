@@ -1,11 +1,16 @@
 /**
  * CatalogPilot Drizzle schema.
  *
- * DB-0: foundation only (no domain tables yet).
- * Domain tables land in later DB phases — see docs/development/DATABASE_PHASES.md.
- *
- * Export tables from this barrel as they are added (DB-1+).
+ * Domain tables are added per database phase.
+ * See docs/development/DATABASE_PHASES.md.
  */
 
-// Placeholder export so this file is a valid ES module for Drizzle `schema` wiring.
-export {};
+export { MEMBER_ROLES, JOB_RUN_STATUSES } from "./constants";
+export type { MemberRole, JobRunStatus } from "./constants";
+export {
+  users,
+  organizations,
+  organizationMembers,
+  organizationInvites,
+} from "./identity";
+export { activityLogs, jobRuns } from "./audit";
