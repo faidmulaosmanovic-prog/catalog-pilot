@@ -47,7 +47,7 @@
 
 **Recommendation: Better Auth** — keeps `users`, sessions, and organization membership in the same Postgres database as products, simplifying joins, backups, and org isolation tests. Revisit Clerk if auth setup becomes a schedule risk.
 
-**Provisional assumption:** Use Better Auth with email/password + organization plugin; magic link optional later.
+**Phase 2 choice:** Better Auth handles email/password, sessions, and verification. Organizations, members, and invites stay in CatalogPilot tables (`owner|admin|editor|viewer`, hashed invite tokens) instead of the Better Auth organization plugin.
 
 ### 2.2 Hosting decision
 

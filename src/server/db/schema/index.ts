@@ -14,3 +14,4 @@ export {
   organizationInvites,
 } from "./identity";
 export { activityLogs, jobRuns } from "./audit";
+export { sessions, accounts, verifications } from "./auth-tables";

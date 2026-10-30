@@ -34,20 +34,20 @@ See [DATABASE_PHASES.md](./DATABASE_PHASES.md) and [DEVELOPMENT_ROADMAP.md](./DE
 ## DB-1 — Identity & tenancy (database first)
 
 - [x] Migration: users, organizations, organization_members, organization_invites  
-- [ ] Better Auth tables (`sessions`, `accounts`, `verifications`) — Phase 2, generated with the auth install  
+- [x] Better Auth tables (`sessions`, `accounts`, `verifications`)  
 - [x] Unique slug / membership constraints  
 - [x] Integration tests for FKs  
 
 ### Then Phase 2 — Auth & orgs (API → UI)
 
-- [ ] Better Auth email/password  
-- [ ] Email verification + password reset  
-- [ ] Profile view/edit  
-- [ ] Create organization + switcher  
-- [ ] Invites create/accept  
-- [ ] Role middleware  
-- [ ] Cross-tenant access tests  
-- [ ] Auth/org UI screens  
+- [x] Better Auth email/password  
+- [x] Email verification + password reset  
+- [x] Profile view/edit  
+- [x] Create organization + switcher  
+- [x] Invites create/accept  
+- [x] Role middleware  
+- [x] Cross-tenant access tests  
+- [x] Auth/org UI screens  
 
 ---
 

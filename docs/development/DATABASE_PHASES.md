@@ -130,9 +130,9 @@ flowchart TD
 - [x] Cannot insert `organization_members` without valid org + user  
 - [x] Integration test: two orgs, membership isolated  
 - [x] Role column restricted to `owner|admin|editor|viewer` (check constraint or app enum + tests)  
-- [ ] Better Auth `sessions`, `accounts`, `verifications` — deferred to Phase 2 so they are generated from the auth config instead of hand-copied  
+- [x] Better Auth `sessions`, `accounts`, `verifications` (`0003_phase2_auth_tables.sql`)  
 
-**Status:** Tenancy schema completed 2026-10-30 (`0001_db1_identity_tenancy.sql`). Auth auxiliary tables are still Phase 2.
+**Status:** Tenancy schema completed 2026-10-30. Auth auxiliary tables added in Phase 2.
 
 **Tests:** FK integrity; unique membership; invite token hash stored (not raw token)  
 

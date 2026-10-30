@@ -16,10 +16,10 @@ import { MEMBER_ROLES } from "./constants";
 /**
  * DB-1 identity and tenancy.
  *
- * `sessions`, `accounts`, and `verifications` are Better Auth tables. They are
- * not created here so Phase 2 can generate them from the auth config instead
- * of maintaining a second copy. `users` is the application user row that
- * Better Auth will be mapped onto.
+ * `users` is the Better Auth user row. Session, account, and verification
+ * tables live in `auth-tables.ts`. Organization membership stays in these
+ * tables rather than the Better Auth organization plugin, because roles are
+ * owner|admin|editor|viewer and invite tokens are stored hashed.
  */
 
 const timestamps = {
@@ -35,8 +35,8 @@ export const users = pgTable("users", {
   id: uuid("id").primaryKey().defaultRandom(),
   email: text("email").notNull().unique(),
   emailVerified: boolean("email_verified").notNull().default(false),
-  name: text("name"),
-  imageUrl: text("image_url"),
+  name: text("name").notNull(),
+  image: text("image_url"),
   passwordHash: text("password_hash"),
   ...timestamps,
 });

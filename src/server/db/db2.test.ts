@@ -11,6 +11,7 @@ import {
 
 import { createDb, createPostgresClient } from "./client";
 import { postgresErrorCode } from "./postgres-error";
+import { resetDatabase } from "./reset-database";
 import { JOB_RUN_STATUSES } from "./schema/constants";
 import { organizationMembers, organizations, users } from "./schema/identity";
 import { jobRuns } from "./schema/audit";
@@ -26,16 +27,7 @@ describe.skipIf(!hasDatabaseUrl)("DB-1 tenancy and DB-2 audit", () => {
   });
 
   beforeEach(async () => {
-    await db.execute(sql`
-      truncate table
-        activity_logs,
-        job_runs,
-        organization_invites,
-        organization_members,
-        organizations,
-        users
-      restart identity cascade
-    `);
+    await resetDatabase(db);
   });
 
   afterAll(async () => {
