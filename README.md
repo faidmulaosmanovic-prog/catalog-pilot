@@ -4,57 +4,78 @@
 
 CatalogPilot helps ecommerce businesses clean, organize, validate, and prepare product catalogs for multiple sales channels — without spending hours managing spreadsheets.
 
-> **Status:** Planning / documentation phase. Application implementation has **not** started. Await explicit approval before coding product features.
+> **Status:** Implementation started — **DB-0 (database foundation)** complete. Domain features not built yet.
 
 ---
 
 ## Who it’s for
 
-US-based small and mid-sized ecommerce teams managing roughly **1,000–50,000 products**, including:
-
-- Shopify merchants  
-- Amazon, Walmart, and eBay sellers  
-- Ecommerce agencies  
-- Wholesale distributors  
-- Multi-channel businesses  
+US-based small and mid-sized ecommerce teams managing roughly **1,000–50,000 products**, including Shopify merchants, Amazon/Walmart/eBay sellers, agencies, wholesale distributors, and multi-channel businesses.
 
 ---
 
-## Core features (planned)
-
-| Module | MVP |
-|--------|-----|
-| Auth & multi-tenant organizations | Yes |
-| Smart CSV import (map, preview, background jobs) | Yes |
-| Product catalog (search, edit, variants basics) | Yes |
-| Data quality engine + quality score | Yes |
-| Bulk editor with preview/history | Yes |
-| Marketplace CSV exports (Shopify + Amazon templates) | Yes |
-| Stripe subscriptions & usage limits | Yes |
-| AI Content Studio (review-before-apply) | V1.1 |
-| Image upload library | V1.1 |
-| Automation & marketplace APIs | V2+ |
-
-MVP delivers **file export templates**, not official marketplace API sync.
-
----
-
-## Proposed stack
+## Current stack (in repo)
 
 | Area | Choice |
 |------|--------|
-| App | Next.js, TypeScript, Tailwind CSS, shadcn/ui |
-| API | Next.js Route Handlers (modular monolith) |
-| Auth | **Better Auth** (recommended over Clerk — see architecture docs) |
-| DB | PostgreSQL + Drizzle ORM (Neon recommended) |
-| Files | Cloudflare R2 |
-| Jobs | Cloudflare Queues (+ Worker consumer) |
-| Host | Cloudflare Workers via OpenNext **if** Phase 1 spike passes; else Vercel |
-| AI | OpenAI API (post-MVP) |
-| Payments | Stripe Billing |
-| Tests | Vitest, Playwright |
-| Observability | Sentry, PostHog |
-| CI | GitHub Actions |
+| App | Next.js 16 (App Router), TypeScript, Tailwind CSS |
+| DB | PostgreSQL 16 + Drizzle ORM + postgres.js |
+| Package manager | pnpm |
+| Tests | Vitest |
+| CI | GitHub Actions (migrate + test against Postgres 16) |
+
+Planned (not installed yet): Better Auth, shadcn/ui, R2, Queues, Stripe, Sentry, PostHog.
+
+---
+
+## Quick start (DB-0)
+
+### Prerequisites
+
+- Node.js 22+
+- pnpm 10+
+- PostgreSQL 15+ (local or Neon)
+
+### Setup
+
+```bash
+pnpm install
+cp .env.example .env.local
+# Edit DATABASE_URL if needed
+
+pnpm db:migrate   # apply migrations (includes DB-0 pgcrypto)
+pnpm db:check     # SELECT 1 smoke
+pnpm test         # includes DB-0 integration tests (needs DATABASE_URL)
+pnpm dev          # http://localhost:3000
+```
+
+### Useful scripts
+
+| Script | Purpose |
+|--------|---------|
+| `pnpm db:migrate` | Apply Drizzle migrations |
+| `pnpm db:generate` | Generate migrations from schema |
+| `pnpm db:check` | DB connectivity smoke |
+| `pnpm db:studio` | Drizzle Studio |
+| `pnpm typecheck` | `tsc --noEmit` |
+| `pnpm test` | Vitest |
+| `pnpm lint` | ESLint |
+
+---
+
+## Database phases
+
+Delivery order is **schema → API → UI**. See:
+
+- [DATABASE_PHASES.md](docs/development/DATABASE_PHASES.md) — **DB-0 done next is DB-1**
+- [DEVELOPMENT_ROADMAP.md](docs/development/DEVELOPMENT_ROADMAP.md)
+
+| Phase | Status |
+|-------|--------|
+| DB-0 Foundation | Done |
+| DB-1 Identity & tenancy | Next |
+| DB-2 … DB-8 | Planned |
+| DB-9 AI | V1.1 |
 
 ---
 
@@ -62,62 +83,36 @@ MVP delivers **file export templates**, not official marketplace API sync.
 
 ### Product
 
-- [PRD](docs/product/PRD.md)  
-- [User stories](docs/product/USER_STORIES.md)  
-- [MVP scope](docs/product/MVP_SCOPE.md)  
-- [User journeys & UI](docs/product/USER_JOURNEYS.md)  
-- [Go-to-market](docs/product/GO_TO_MARKET.md)  
+- [PRD](docs/product/PRD.md)
+- [User stories](docs/product/USER_STORIES.md)
+- [MVP scope](docs/product/MVP_SCOPE.md)
+- [User journeys & UI](docs/product/USER_JOURNEYS.md)
+- [Go-to-market](docs/product/GO_TO_MARKET.md)
 
 ### Architecture
 
-- [System architecture](docs/architecture/SYSTEM_ARCHITECTURE.md)  
-- [Database schema](docs/architecture/DATABASE_SCHEMA.md)  
-- [API specification](docs/architecture/API_SPECIFICATION.md)  
-- [Import/export engine](docs/architecture/IMPORT_EXPORT_ENGINE.md)  
-- [Marketplace adapters](docs/architecture/MARKETPLACE_ADAPTERS.md)  
-- [Security](docs/architecture/SECURITY.md)  
+- [System architecture](docs/architecture/SYSTEM_ARCHITECTURE.md)
+- [Database schema](docs/architecture/DATABASE_SCHEMA.md)
+- [API specification](docs/architecture/API_SPECIFICATION.md)
+- [Import/export engine](docs/architecture/IMPORT_EXPORT_ENGINE.md)
+- [Marketplace adapters](docs/architecture/MARKETPLACE_ADAPTERS.md)
+- [Security](docs/architecture/SECURITY.md)
+- [ADR 0001 Hosting](docs/architecture/adr/0001-hosting.md)
 
 ### Development
 
-- [Development roadmap](docs/development/DEVELOPMENT_ROADMAP.md)  
-- [Database phases (DB → frontend)](docs/development/DATABASE_PHASES.md)  
-- [Implementation checklist](docs/development/IMPLEMENTATION_CHECKLIST.md)  
-- [Testing strategy](docs/development/TESTING_STRATEGY.md)  
-- [GitHub issues breakdown](docs/development/GITHUB_ISSUES.md)  
-- [Definition of Done](docs/development/DEFINITION_OF_DONE.md)  
+- [Development roadmap](docs/development/DEVELOPMENT_ROADMAP.md)
+- [Database phases](docs/development/DATABASE_PHASES.md)
+- [Implementation checklist](docs/development/IMPLEMENTATION_CHECKLIST.md)
+- [Testing strategy](docs/development/TESTING_STRATEGY.md)
+- [GitHub issues](docs/development/GITHUB_ISSUES.md)
+- [Definition of Done](docs/development/DEFINITION_OF_DONE.md)
 
 ### Research
 
-- [Competitor analysis agenda](docs/research/COMPETITOR_ANALYSIS.md)  
-- [Market assumptions](docs/research/MARKET_ASSUMPTIONS.md)  
-- [Customer validation](docs/research/CUSTOMER_VALIDATION.md)  
-
----
-
-## How to start development (when approved)
-
-1. Read [MVP_SCOPE.md](docs/product/MVP_SCOPE.md) and [SYSTEM_ARCHITECTURE.md](docs/architecture/SYSTEM_ARCHITECTURE.md).  
-2. Complete **Phase 1** spike (hosting + DB + R2 + queue) per the roadmap.  
-3. Follow [IMPLEMENTATION_CHECKLIST.md](docs/development/IMPLEMENTATION_CHECKLIST.md) in order.  
-4. Create GitHub issues from [GITHUB_ISSUES.md](docs/development/GITHUB_ISSUES.md).  
-5. Do **not** implement AI or marketplace APIs in MVP.
-
-```bash
-# After approval — illustrative only (not scaffolded yet)
-# pnpm create next-app …
-# pnpm dlx shadcn@latest init
-# Configure Drizzle, Better Auth, R2, Queues per docs
-```
-
-Dependencies are **not** installed in this planning commit.
-
----
-
-## Repository conventions
-
-- Feature branches: `cursor/<descriptive-name>-7c25` or `feat/<slug>`  
-- Commits: Conventional Commits (`feat:`, `fix:`, `docs:`, …)  
-- PRs must pass CI once application code exists  
+- [Competitor analysis](docs/research/COMPETITOR_ANALYSIS.md)
+- [Market assumptions](docs/research/MARKET_ASSUMPTIONS.md)
+- [Customer validation](docs/research/CUSTOMER_VALIDATION.md)
 
 ---
 

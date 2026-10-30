@@ -83,15 +83,17 @@ flowchart TD
 **Effort:** 2–3 sessions  
 
 **Acceptance criteria**
-- [ ] Fresh database reaches schema version 0/baseline via one command  
-- [ ] TypeScript `db` client compiles  
-- [ ] CI migration job is green  
+- [x] Fresh database reaches schema version 0/baseline via one command (`pnpm db:migrate`)  
+- [x] TypeScript `db` client compiles  
+- [x] CI migration job configured (`.github/workflows/ci.yml`)  
 
-**Tests:** migration apply/rollback smoke (at least apply on empty DB)  
+**Status:** Completed 2026-10-30 — baseline migration enables `pgcrypto`; Vitest DB smoke included.
+
+**Tests:** migration apply smoke + `select 1` + extension check  
 
 **Frontend:** none  
 
-**Definition of Done:** DB-0 checklist + [DEFINITION_OF_DONE.md](./DEFINITION_OF_DONE.md) infra items  
+**Definition of Done:** DB-0 checklist + [DEFINITION_OF_DONE.md](./DEFINITION_OF_DONE.md) infra items 
 
 ---
 

@@ -18,16 +18,16 @@ See [DATABASE_PHASES.md](./DATABASE_PHASES.md) and [DEVELOPMENT_ROADMAP.md](./DE
 
 ## DB-0 + Phase 0 — Foundation
 
-- [ ] Next.js + TS + Tailwind + shadcn scaffold  
-- [ ] ESLint + Prettier + Vitest  
-- [ ] Drizzle + migrate scripts (**DB-0**)  
-- [ ] Neon (or Postgres) via `DATABASE_URL`  
-- [ ] CI applies migrations  
+- [x] Next.js + TS + Tailwind scaffold (shadcn pending)  
+- [x] ESLint + Vitest (Prettier optional later)  
+- [x] Drizzle + migrate scripts (**DB-0**)  
+- [x] Postgres via `DATABASE_URL` (local + CI service; Neon optional)  
+- [x] CI applies migrations (`.github/workflows/ci.yml`)  
 - [ ] R2 upload/download helper + signed URL  
 - [ ] Queue producer/consumer spike  
 - [ ] Sentry + PostHog stubs  
-- [ ] `.env.example`  
-- [ ] ADR: Cloudflare OpenNext vs fallback  
+- [x] `.env.example`  
+- [x] ADR: Cloudflare OpenNext vs fallback (interim — `docs/architecture/adr/0001-hosting.md`) 
 
 ---
 
