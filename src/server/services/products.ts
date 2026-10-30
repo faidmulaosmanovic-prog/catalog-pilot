@@ -176,7 +176,7 @@ async function writeRevision(
   organizationId: string,
   productId: string,
   userId: string,
-  changeSource: "manual" | "import" | "bulk" | "ai" | "system",
+  changeSource: string,
 ) {
   const [current] = await db
     .select({ revision: sql<number>`coalesce(max(${productRevisions.revision}), 0)::int` })
@@ -254,11 +254,42 @@ export async function listCategories(db: Database, organizationId: string) {
   return rows;
 }
 
+export async function findActiveProductBySku(
+  db: Database,
+  organizationId: string,
+  sku: string,
+) {
+  const [product] = await db
+    .select({ id: products.id, updatedAt: products.updatedAt })
+    .from(products)
+    .where(
+      and(eq(products.organizationId, organizationId), eq(products.sku, sku), isNull(products.deletedAt)),
+    )
+    .limit(1);
+  return product ?? null;
+}
+
+export async function captureProductRevision(
+  db: Database,
+  organizationId: string,
+  productId: string,
+  userId: string,
+  changeSource: string,
+) {
+  await writeRevision(db, organizationId, productId, userId, changeSource);
+}
+
+type ProductWriteOptions = {
+  sourceImportId?: string;
+  changeSource?: string;
+};
+
 export async function createProduct(
   db: Database,
   actorUserId: string,
   organizationId: string,
   input: unknown,
+  options?: ProductWriteOptions,
 ) {
   const data = createProductSchema.parse(input);
   if (data.categoryId) {
@@ -285,6 +316,7 @@ export async function createProduct(
           barcode: data.barcode ?? null,
           barcodeType: data.barcodeType ?? null,
           attributesJson: data.attributes ?? {},
+          sourceImportId: options?.sourceImportId ?? null,
         })
         .returning();
       if (!product) {
@@ -296,7 +328,13 @@ export async function createProduct(
       if (data.attributes) {
         await syncAttributes(database, organizationId, product.id, data.attributes);
       }
-      await writeRevision(database, organizationId, product.id, actorUserId, "manual");
+      await writeRevision(
+        database,
+        organizationId,
+        product.id,
+        actorUserId,
+        options?.changeSource ?? "manual",
+      );
       await recordActivity(database, {
         organizationId,
         actorUserId,
@@ -458,6 +496,7 @@ export async function updateProduct(
   organizationId: string,
   productId: string,
   input: unknown,
+  options?: ProductWriteOptions,
 ) {
   const data = patchProductSchema.parse(input);
   const existing = await getProduct(db, organizationId, productId);
@@ -498,7 +537,13 @@ export async function updateProduct(
       if (data.attributes) {
         await syncAttributes(database, organizationId, productId, data.attributes);
       }
-      await writeRevision(database, organizationId, productId, actorUserId, "manual");
+      await writeRevision(
+        database,
+        organizationId,
+        productId,
+        actorUserId,
+        options?.changeSource ?? "manual",
+      );
       await recordActivity(database, {
         organizationId,
         actorUserId,

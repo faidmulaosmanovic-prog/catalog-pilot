@@ -20,13 +20,15 @@ import { valueIn } from "./checks";
 import {
   BARCODE_TYPES,
   IMAGE_STATUSES,
+  IMPORT_ROW_STATUSES,
   PRODUCT_STATUSES,
 } from "./constants";
 import { organizations, users } from "./identity";
+import { imports } from "./imports";
 
 /**
  * DB-3 catalog core.
- * `source_import_id` stays a nullable uuid until DB-4 adds the imports foreign key.
+ * `source_import_id` references imports (DB-4).
  */
 
 function timestamps() {
@@ -88,7 +90,9 @@ export const products = pgTable(
       .$type<Record<string, unknown>>()
       .notNull()
       .default({}),
-    sourceImportId: uuid("source_import_id"),
+    sourceImportId: uuid("source_import_id").references(() => imports.id, {
+      onDelete: "set null",
+    }),
     ...timestamps(),
     deletedAt: timestamp("deleted_at", { withTimezone: true, mode: "date" }),
   },
@@ -233,6 +237,32 @@ export const productRevisions = pgTable(
     unique("product_revisions_product_revision_unique").on(
       table.productId,
       table.revision,
+    ),
+  ],
+);
+
+export const importRows = pgTable(
+  "import_rows",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    importId: uuid("import_id")
+      .notNull()
+      .references(() => imports.id, { onDelete: "cascade" }),
+    organizationId: uuid("organization_id")
+      .notNull()
+      .references(() => organizations.id, { onDelete: "cascade" }),
+    rowNumber: integer("row_number").notNull(),
+    rawJson: jsonb("raw_json").$type<Record<string, unknown>>(),
+    status: text("status"),
+    errorMessage: text("error_message"),
+    productId: uuid("product_id").references(() => products.id, { onDelete: "set null" }),
+  },
+  (table) => [
+    index("import_rows_import_status_idx").on(table.importId, table.status),
+    index("import_rows_import_row_number_idx").on(table.importId, table.rowNumber),
+    check(
+      "import_rows_status_check",
+      sql`${table.status} is null or ${valueIn(table.status, IMPORT_ROW_STATUSES)}`,
     ),
   ],
 );

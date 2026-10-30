@@ -81,23 +81,23 @@ See [DATABASE_PHASES.md](./DATABASE_PHASES.md) and [DEVELOPMENT_ROADMAP.md](./DE
 
 ## DB-4 — Import (database first)
 
-- [ ] Migration: imports, import_mappings, import_rows  
-- [ ] FK products.source_import_id → imports  
-- [ ] Status + content hash indexes  
+- [x] Migration: imports, import_mappings, import_rows  
+- [x] FK products.source_import_id → imports  
+- [x] Status + content hash indexes  
 
 ### Then Import API → UI
 
-- [ ] Upload + R2 + hash  
-- [ ] Encoding/BOM + delimiter detection  
-- [ ] Mapping UI/API  
-- [ ] Preview + validation  
-- [ ] Confirm + enqueue + worker batches  
-- [ ] Error report + history  
-- [ ] Soft rollback  
-- [ ] Single-active-import lock  
-- [ ] Idempotency-Key on confirm  
-- [ ] Fixture tests (BOM, quotes, delimiters, dup SKUs, large file)  
-- [ ] Import wizard UI  
+- [x] Upload + R2 + hash  
+- [x] Encoding/BOM + delimiter detection  
+- [x] Mapping UI/API  
+- [x] Preview + validation  
+- [x] Confirm + enqueue + worker batches  
+- [x] Error report + history  
+- [x] Soft rollback  
+- [x] Single-active-import lock  
+- [x] Idempotency-Key on confirm  
+- [x] Fixture tests (BOM, quotes, delimiters, dup SKUs). Files over 20 MB are rejected; no multi-megabyte fixture.
+- [x] Import wizard UI  
 
 ---
 

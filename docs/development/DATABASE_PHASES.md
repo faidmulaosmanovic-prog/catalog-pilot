@@ -233,10 +233,12 @@ flowchart TD
 **Effort:** 3–4 sessions (schema); worker/UI tracked in product Phase Import  
 
 **Acceptance criteria**
-- [ ] Import row always has `organization_id`  
-- [ ] Status enum covers uploaded→rolled_back lifecycle  
-- [ ] Index `(organization_id, file_content_hash)` exists  
-- [ ] Rollback can find products by `source_import_id`  
+- [x] Import row always has `organization_id`  
+- [x] Status enum covers uploaded→rolled_back lifecycle  
+- [x] Index `(organization_id, file_content_hash)` exists  
+- [x] Rollback can find products by `source_import_id`  
+
+**Status:** Completed 2026-10-30 — `0005_db4_import_engine.sql`. `products.source_import_id` now references `imports` and is set on rows this import creates. Upserted products keep their previous id and are restored from the pre-import revision. File bytes are stored under the R2 key layout in local `.data/object-store` until an R2 binding exists. Confirm runs `import.process` in the request, in batches of 200, and records a `job_runs` row. A duplicate content hash warns and does not block. Post-import validation waits for DB-5.
 
 **Tests:** org-scoped import listing; orphan mapping prevented by FK  
 

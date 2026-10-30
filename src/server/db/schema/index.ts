@@ -15,6 +15,7 @@ export {
 } from "./identity";
 export { activityLogs, jobRuns } from "./audit";
 export { sessions, accounts, verifications } from "./auth-tables";
+export { imports, importMappings } from "./imports";
 export {
   categories,
   products,
@@ -22,4 +23,5 @@ export {
   productAttributes,
   productImages,
   productRevisions,
+  importRows,
 } from "./catalog";

@@ -19,3 +19,35 @@ export type BarcodeType = (typeof BARCODE_TYPES)[number];
 
 export const IMAGE_STATUSES = ["pending", "valid", "invalid"] as const;
 export type ImageStatus = (typeof IMAGE_STATUSES)[number];
+
+export const IMPORT_STATUSES = [
+  "uploaded",
+  "mapping",
+  "validated",
+  "queued",
+  "processing",
+  "completed",
+  "failed",
+  "rolled_back",
+] as const;
+export type ImportStatus = (typeof IMPORT_STATUSES)[number];
+
+export const IMPORT_MODES = ["create", "upsert"] as const;
+export type ImportMode = (typeof IMPORT_MODES)[number];
+
+export const IMPORT_ROW_STATUSES = ["preview", "success", "failed", "skipped"] as const;
+export type ImportRowStatus = (typeof IMPORT_ROW_STATUSES)[number];
+
+export const IMPORT_TARGET_FIELDS = [
+  "sku",
+  "title",
+  "description",
+  "brand",
+  "price",
+  "currency",
+  "quantity",
+  "barcode",
+  "image_url",
+  "status",
+] as const;
+export type ImportTargetField = (typeof IMPORT_TARGET_FIELDS)[number];
