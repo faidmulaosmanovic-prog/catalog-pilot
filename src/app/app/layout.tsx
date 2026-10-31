@@ -53,6 +53,9 @@ async function WorkspaceFrame({ children }: { children: ReactNode }) {
           <Link className="underline" href="/app/bulk">
             Bulk edit
           </Link>
+          <Link className="underline" href="/app/exports">
+            Exports
+          </Link>
           <Link className="underline" href="/app/organizations/new">
             New organization
           </Link>

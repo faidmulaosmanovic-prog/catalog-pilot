@@ -331,9 +331,13 @@ flowchart TD
 **Effort:** 2–3 sessions  
 
 **Acceptance criteria**
-- [ ] Unique `(channel_id, version)` on templates  
-- [ ] Export job cannot reference wrong org’s products via service tests  
-- [ ] Seeds insert idempotently  
+- [x] Unique `(channel_id, version)` on templates  
+- [x] Export job cannot reference wrong org’s products via service tests  
+- [x] Seeds insert idempotently  
+
+**Status:** Completed 2026-10-31 — `0008_db7_channels_export.sql` (numbered 0008 because Phase 2 auth used 0003). Shopify and Amazon are seeded as `csv_template` channels with default template `2026.1`. The inserts use `ON CONFLICT DO NOTHING`. Export runs validation first and fails the job when open critical or error issues remain. CSV bytes use the R2 key layout under local `.data/object-store`. A completed job exposes a 15-minute signed download URL. This is file export only.
+
+**Tests:** Shopify and Amazon golden CSV files; variant rows; unknown channel; broken product blocked; cross-org 404; signed download  
 
 ---
 

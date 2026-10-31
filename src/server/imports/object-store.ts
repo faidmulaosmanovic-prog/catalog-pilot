@@ -23,6 +23,10 @@ export function sha256(bytes: Buffer) {
   return createHash("sha256").update(bytes).digest("hex");
 }
 
+export function exportObjectKey(organizationId: string, exportId: string) {
+  return `org/${organizationId}/exports/${exportId}/catalog.csv`;
+}
+
 export function putImportObject(key: string, bytes: Buffer) {
   const full = path.join(root, key);
   mkdirSync(path.dirname(full), { recursive: true });

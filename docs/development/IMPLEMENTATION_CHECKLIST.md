@@ -132,17 +132,17 @@ See [DATABASE_PHASES.md](./DATABASE_PHASES.md) and [DEVELOPMENT_ROADMAP.md](./DE
 
 ## DB-7 — Channels & export (database first)
 
-- [ ] Migration: channels, marketplace_templates, channel_listings, export_jobs  
-- [ ] Seed shopify + amazon csv_template 2026.1  
+- [x] Migration: channels, marketplace_templates, channel_listings, export_jobs  
+- [x] Seed shopify + amazon csv_template 2026.1  
 
 ### Then Export API → UI
 
-- [ ] MarketplaceAdapter interface + registry  
-- [ ] ShopifyCsvAdapter + AmazonCsvAdapter  
-- [ ] Export job worker + signed download  
-- [ ] Pre-export validation  
-- [ ] Export history UI  
-- [ ] Golden file tests  
+- [x] MarketplaceAdapter interface + registry  
+- [x] ShopifyCsvAdapter + AmazonCsvAdapter  
+- [x] Export job worker + signed download  
+- [x] Pre-export validation  
+- [x] Export history UI  
+- [x] Golden file tests  
 
 ---
 

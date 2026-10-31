@@ -102,3 +102,12 @@ export type BulkJobStatus = (typeof BULK_JOB_STATUSES)[number];
 
 export const BULK_TEXT_FIELDS = ["title", "description", "brand"] as const;
 export type BulkTextField = (typeof BULK_TEXT_FIELDS)[number];
+
+export const CHANNEL_TYPES = ["csv_template", "api"] as const;
+export type ChannelType = (typeof CHANNEL_TYPES)[number];
+
+export const EXPORT_JOB_STATUSES = ["queued", "processing", "completed", "failed"] as const;
+export type ExportJobStatus = (typeof EXPORT_JOB_STATUSES)[number];
+
+export const LISTING_STATUSES = ["ready", "exported", "error"] as const;
+export type ListingStatus = (typeof LISTING_STATUSES)[number];

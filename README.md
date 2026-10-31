@@ -4,7 +4,7 @@
 
 CatalogPilot helps ecommerce businesses clean, organize, validate, and prepare product catalogs for multiple sales channels — without spending hours managing spreadsheets.
 
-> **Status:** Implementation started — **DB-6 bulk editor** is in place (preview, apply, undo). Next schema phase is DB-7 channels and export.
+> **Status:** Implementation started — **DB-7 channels and export** is in place (Shopify and Amazon CSV). Next schema phase is DB-8 billing.
 
 ---
 
@@ -67,7 +67,7 @@ pnpm dev          # http://localhost:3000
 
 Delivery order is **schema → API → UI**. See:
 
-- [DATABASE_PHASES.md](docs/development/DATABASE_PHASES.md) — **DB-6 bulk editor is in place; next schema phase is DB-7 channels and export**
+- [DATABASE_PHASES.md](docs/development/DATABASE_PHASES.md) — **DB-7 channels and export are in place; next schema phase is DB-8 billing**
 - [DEVELOPMENT_ROADMAP.md](docs/development/DEVELOPMENT_ROADMAP.md)
 
 | Phase | Status |
@@ -80,7 +80,8 @@ Delivery order is **schema → API → UI**. See:
 | DB-4 Import engine | Done |
 | DB-5 Data quality | Done |
 | DB-6 Bulk editor | Done |
-| DB-7 … DB-8 | Planned |
+| DB-7 Channels & export | Done |
+| DB-8 Billing | Planned |
 | DB-9 AI | V1.1 |
 
 ---
