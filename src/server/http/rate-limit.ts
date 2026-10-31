@@ -19,6 +19,16 @@ export function hitRateLimit(
   return { limited: false as const, retryAfter: 0 };
 }
 
+/** 120 requests per minute for one signed-in user. */
+export function enforceUserApiLimit(userId: string, now = Date.now()) {
+  return hitRateLimit(`api:${userId}`, 120, 60_000, now);
+}
+
+/** 10 CSV uploads per hour for one organization. Separate from the plan job cap. */
+export function enforceImportUploadLimit(organizationId: string, now = Date.now()) {
+  return hitRateLimit(`import-upload:${organizationId}`, 10, 60 * 60 * 1000, now);
+}
+
 export function resetRateLimits() {
   buckets.clear();
 }

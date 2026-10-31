@@ -1,5 +1,10 @@
 import { db } from "@/server/db/client";
-import { jsonOk, requireCatalogAccess, serviceErrorResponse } from "@/server/http/api";
+import {
+  enforceOrgImportUploadLimit,
+  jsonOk,
+  requireCatalogAccess,
+  serviceErrorResponse,
+} from "@/server/http/api";
 import { ServiceError } from "@/server/services/organizations";
 import { uploadImport } from "@/server/services/imports";
 
@@ -7,6 +12,10 @@ export async function POST(request: Request) {
   const access = await requireCatalogAccess(request, true);
   if (!access.ok) {
     return access.response;
+  }
+  const limited = enforceOrgImportUploadLimit(access.membership.organizationId);
+  if (limited) {
+    return limited;
   }
   try {
     const form = await request.formData();

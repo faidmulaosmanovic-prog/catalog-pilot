@@ -1,0 +1,3 @@
+SKU,Title,Description,Brand,Price,Currency,Quantity,Barcode,Image URL,Status
+TEE-1,Blue Tee,Soft cotton tee,Ada,10.00,USD,5,123456789012,https://example.com/tee.jpg,active
+MUG-1,Clay Mug,Speckled mug,Ada,8.50,USD,12,4006381333931,https://example.com/mug.jpg,draft

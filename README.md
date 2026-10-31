@@ -4,7 +4,7 @@
 
 CatalogPilot helps ecommerce businesses clean, organize, validate, and prepare product catalogs for multiple sales channels — without spending hours managing spreadsheets.
 
-> **Status:** Implementation started — **DB-8 billing** is in place (trial, plan limits, Stripe Checkout and portal). MVP schema phases DB-0 through DB-8 are migrated. DB-9 AI stays out of MVP.
+> **Status:** Implementation started — **Phase 9 production readiness** is in place (rate limits, legal pages, sample CSV, backup drill). MVP schema phases DB-0 through DB-8 are migrated. DB-9 AI stays out of MVP.
 
 ---
 
@@ -67,7 +67,7 @@ pnpm dev          # http://localhost:3000
 
 Delivery order is **schema → API → UI**. See:
 
-- [DATABASE_PHASES.md](docs/development/DATABASE_PHASES.md) — **DB-8 billing is in place; DB-9 AI stays out of MVP**
+- [DATABASE_PHASES.md](docs/development/DATABASE_PHASES.md) — **DB-8 billing is in place; Phase 9 production readiness is in place; DB-9 AI stays out of MVP**
 - [DEVELOPMENT_ROADMAP.md](docs/development/DEVELOPMENT_ROADMAP.md)
 
 | Phase | Status |
@@ -82,6 +82,7 @@ Delivery order is **schema → API → UI**. See:
 | DB-6 Bulk editor | Done |
 | DB-7 Channels & export | Done |
 | DB-8 Billing | Done |
+| Phase 9 Production | Done |
 | DB-9 AI | V1.1 |
 
 ---

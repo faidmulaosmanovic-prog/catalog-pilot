@@ -23,6 +23,12 @@ async function NewImport() {
   return (
     <section className="flex flex-col gap-4">
       <h1 className="text-2xl font-semibold">Import CSV</h1>
+      <p className="text-sm">
+        <a className="underline" href="/samples/catalog-sample.csv">
+          Download the sample CSV
+        </a>{" "}
+        if you want a file that already maps to SKU, title, price, and image URL.
+      </p>
       <ImportWizard organizationId={workspace.active.id} />
     </section>
   );

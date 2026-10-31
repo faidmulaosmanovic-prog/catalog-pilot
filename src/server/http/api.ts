@@ -5,7 +5,8 @@ import { auth } from "@/server/auth/auth";
 import { canMutateCatalog } from "@/server/auth/roles";
 import type { MemberRole } from "@/server/db/schema/constants";
 import { db } from "@/server/db/client";
-import { clientIp, hitRateLimit } from "@/server/http/rate-limit";
+import { reportException } from "@/server/observability/report-error";
+import { clientIp, enforceImportUploadLimit, enforceUserApiLimit, hitRateLimit } from "@/server/http/rate-limit";
 import { getMembership, ServiceError } from "@/server/services/organizations";
 
 export function jsonError(
@@ -13,6 +14,7 @@ export function jsonError(
   code: string,
   message: string,
   details: Array<{ field?: string; message: string; code?: string }> = [],
+  requestId = `req_${crypto.randomUUID()}`,
 ) {
   return Response.json(
     {
@@ -20,7 +22,7 @@ export function jsonError(
         code,
         message,
         details,
-        requestId: `req_${crypto.randomUUID()}`,
+        requestId,
       },
     },
     { status },
@@ -63,8 +65,15 @@ export function serviceErrorResponse(error: unknown) {
       })),
     );
   }
-  console.error(error);
-  return jsonError(500, "INTERNAL", "Something went wrong");
+  const requestId = `req_${crypto.randomUUID()}`;
+  reportException(error, { requestId });
+  return jsonError(500, "INTERNAL", "Something went wrong", [], requestId);
+}
+
+function rateLimited(retryAfter: number) {
+  const response = jsonError(429, "RATE_LIMITED", "Too many attempts. Try again soon.");
+  response.headers.set("retry-after", String(retryAfter));
+  return response;
 }
 
 export function enforceAuthRateLimit(request: Request) {
@@ -72,9 +81,23 @@ export function enforceAuthRateLimit(request: Request) {
   if (!result.limited) {
     return null;
   }
-  const response = jsonError(429, "RATE_LIMITED", "Too many attempts. Try again soon.");
-  response.headers.set("retry-after", String(result.retryAfter));
-  return response;
+  return rateLimited(result.retryAfter);
+}
+
+export function enforceUserRateLimit(userId: string) {
+  const result = enforceUserApiLimit(userId);
+  if (!result.limited) {
+    return null;
+  }
+  return rateLimited(result.retryAfter);
+}
+
+export function enforceOrgImportUploadLimit(organizationId: string) {
+  const result = enforceImportUploadLimit(organizationId);
+  if (!result.limited) {
+    return null;
+  }
+  return rateLimited(result.retryAfter);
 }
 
 export function assertTrustedOrigin(request: Request) {
@@ -107,6 +130,10 @@ export async function requireVerifiedSession(request: Request) {
       ok: false as const,
       response: jsonError(403, "FORBIDDEN", "Verify your email before continuing"),
     };
+  }
+  const limited = enforceUserRateLimit(result.session.user.id);
+  if (limited) {
+    return { ok: false as const, response: limited };
   }
   return result;
 }

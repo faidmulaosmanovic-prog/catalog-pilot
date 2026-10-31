@@ -143,16 +143,18 @@ Do not log full CSV contents or Stripe card data (Stripe handles cards).
 
 ## 13. Production readiness checklist
 
-- [ ] Auth hardened + email verification  
-- [ ] Tenant isolation tests green  
-- [ ] Stripe webhooks verified + idempotent  
-- [ ] R2 private + signed URLs  
-- [ ] Sentry + alerting  
-- [ ] Backups verified restore drill  
-- [ ] Rate limits on  
-- [ ] Legal: Terms, Privacy Policy  
-- [ ] Status page optional  
-- [ ] Incident runbook (short)  
+Reviewed 31 October 2026. See [INCIDENT_RUNBOOK.md](../operations/INCIDENT_RUNBOOK.md).
+
+- [x] Auth hardened + email verification  
+- [x] Tenant isolation tests green  
+- [x] Stripe webhooks verified + idempotent  
+- [ ] R2 private + signed URLs (local object store and 15-minute export URLs are in place; hosted R2 is still open)  
+- [x] Sentry capture when `SENTRY_DSN` is set; alert on error spikes in the Sentry project  
+- [x] Backups: local restore drill in [BACKUP_RESTORE.md](../operations/BACKUP_RESTORE.md)  
+- [x] Rate limits on (auth 10/min/IP, API 120/min/user, import upload 10/hour/org)  
+- [x] Legal: Terms, Privacy Policy  
+- [ ] Status page optional (not in this pilot)  
+- [x] Incident runbook (short)  
 
 ---
 

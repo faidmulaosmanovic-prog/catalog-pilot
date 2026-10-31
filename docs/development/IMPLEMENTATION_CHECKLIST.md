@@ -164,12 +164,12 @@ See [DATABASE_PHASES.md](./DATABASE_PHASES.md) and [DEVELOPMENT_ROADMAP.md](./DE
 
 ## Phase 9 — Production
 
-- [ ] Rate limits  
-- [ ] Sentry alerts  
-- [ ] Backup restore drill  
-- [ ] Legal pages  
-- [ ] Security checklist review  
-- [ ] Sample CSV + onboarding checklist  
+- [x] Rate limits  
+- [x] Sentry alerts (capture when `SENTRY_DSN` is set; no SDK dependency)  
+- [x] Backup restore drill  
+- [x] Legal pages  
+- [x] Security checklist review  
+- [x] Sample CSV + onboarding checklist  
 
 ---
 

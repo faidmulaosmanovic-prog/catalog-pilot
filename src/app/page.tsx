@@ -10,8 +10,7 @@ export default function Home() {
         Product data operations platform
       </h1>
       <p className="max-w-xl text-base leading-7 text-zinc-600 dark:text-zinc-300">
-        Sign in to create an organization and invite teammates. Catalog tools
-        come in later phases.
+        Import a catalog, fix data quality issues, and export Shopify or Amazon CSV files.
       </p>
       <div className="flex gap-4 text-sm">
         <Link className="underline" href="/register">
