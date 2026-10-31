@@ -51,3 +51,29 @@ export const IMPORT_TARGET_FIELDS = [
   "status",
 ] as const;
 export type ImportTargetField = (typeof IMPORT_TARGET_FIELDS)[number];
+
+export const SEVERITIES = ["critical", "error", "warning", "info"] as const;
+export type Severity = (typeof SEVERITIES)[number];
+
+export const ISSUE_STATUSES = ["open", "ignored", "resolved"] as const;
+export type IssueStatus = (typeof ISSUE_STATUSES)[number];
+
+export const VALIDATION_SCOPES = ["all", "selection", "post_import"] as const;
+export type ValidationScope = (typeof VALIDATION_SCOPES)[number];
+
+export const VALIDATION_RUN_STATUSES = ["queued", "processing", "completed", "failed"] as const;
+export type ValidationRunStatus = (typeof VALIDATION_RUN_STATUSES)[number];
+
+export const SEVERITY_RANK: Record<Severity, number> = {
+  info: 1,
+  warning: 2,
+  error: 3,
+  critical: 4,
+};
+
+export const SCORE_WEIGHT: Record<Severity, number> = {
+  critical: 25,
+  error: 10,
+  warning: 3,
+  info: 1,
+};

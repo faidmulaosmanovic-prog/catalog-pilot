@@ -483,6 +483,20 @@ async function processImport(
     action: status,
     metadata: { successRows, failedRows },
   });
+  if (status === "completed") {
+    const written = await db
+      .select({ productId: importRows.productId })
+      .from(importRows)
+      .where(and(eq(importRows.importId, importId), eq(importRows.status, "success")));
+    const productIds = written.flatMap((row) => (row.productId ? [row.productId] : []));
+    if (productIds.length > 0) {
+      const { runValidation } = await import("@/server/services/quality");
+      await runValidation(db, actorUserId, organizationId, {
+        scope: "post_import",
+        productIds,
+      });
+    }
+  }
 }
 
 export async function confirmImport(

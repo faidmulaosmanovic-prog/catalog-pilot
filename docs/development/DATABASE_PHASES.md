@@ -238,7 +238,7 @@ flowchart TD
 - [x] Index `(organization_id, file_content_hash)` exists  
 - [x] Rollback can find products by `source_import_id`  
 
-**Status:** Completed 2026-10-30 — `0005_db4_import_engine.sql`. `products.source_import_id` now references `imports` and is set on rows this import creates. Upserted products keep their previous id and are restored from the pre-import revision. File bytes are stored under the R2 key layout in local `.data/object-store` until an R2 binding exists. Confirm runs `import.process` in the request, in batches of 200, and records a `job_runs` row. A duplicate content hash warns and does not block. Post-import validation waits for DB-5.
+**Status:** Completed 2026-10-30 — `0005_db4_import_engine.sql`. `products.source_import_id` now references `imports` and is set on rows this import creates. Upserted products keep their previous id and are restored from the pre-import revision. File bytes are stored under the R2 key layout in local `.data/object-store` until an R2 binding exists. Confirm runs `import.process` in the request, in batches of 200, and records a `job_runs` row. A duplicate content hash warns and does not block. A completed import with written rows starts a `post_import` validation run.
 
 **Tests:** org-scoped import listing; orphan mapping prevented by FK  
 
@@ -268,9 +268,13 @@ flowchart TD
 **Effort:** 2–4 sessions  
 
 **Acceptance criteria**
-- [ ] Seed rules present after migrate  
-- [ ] Issues FK to products + org  
-- [ ] Indexes for `(organization_id, status, severity)`  
+- [x] Seed rules present after migrate  
+- [x] Issues FK to products + org  
+- [x] Indexes for `(organization_id, status, severity)`  
+
+**Status:** Completed 2026-10-30 — `0006_db5_data_quality.sql` (numbered 0006 because Phase 2 auth used 0003). Twelve system rules are seeded with `organization_id` null. An org override is a separate row. Score is `100 − 25×critical − 10×error − 3×warning − 1×info`, ignoring ignored issues, clamped to 0–100. Runs execute in the request and record `validation.run`. Editors may ignore warning and info; admins may also ignore error; critical cannot be ignored. Severity changes stay inside each rule's `config_json` bounds.
+
+**Tests:** bare product scores 70; duplicate barcode; ignore and severity bounds; cross-org 404; post-import issues  
 
 ---
 

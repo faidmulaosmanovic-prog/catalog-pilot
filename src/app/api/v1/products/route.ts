@@ -26,6 +26,7 @@ export async function GET(request: Request) {
       limit: url.searchParams.get("limit") ?? undefined,
       cursor: url.searchParams.get("cursor") ?? undefined,
       page: url.searchParams.get("page") ?? undefined,
+      hasIssues: url.searchParams.get("hasIssues") ?? undefined,
     });
     return jsonOk(result);
   } catch (error) {

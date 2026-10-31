@@ -103,16 +103,16 @@ See [DATABASE_PHASES.md](./DATABASE_PHASES.md) and [DEVELOPMENT_ROADMAP.md](./DE
 
 ## DB-5 — Data quality (database first)
 
-- [ ] Migration: validation_rules, validation_runs, validation_issues  
-- [ ] Seed system rules  
+- [x] Migration: validation_rules, validation_runs, validation_issues  
+- [x] Seed system rules  
 
 ### Then Validation API → UI
 
-- [ ] Rule runner job  
-- [ ] Quality score update  
-- [ ] Issues API  
-- [ ] Data Quality UI (filters, ignore, re-run)  
-- [ ] Post-import validation hook  
+- [x] Rule runner job  
+- [x] Quality score update  
+- [x] Issues API  
+- [x] Data Quality UI (filters, ignore, re-run)  
+- [x] Post-import validation hook  
 
 ---
 

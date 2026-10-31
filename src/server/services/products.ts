@@ -77,6 +77,7 @@ const listSchema = z.object({
   limit: z.coerce.number().int().min(1).max(100).default(50),
   cursor: z.string().optional(),
   page: z.coerce.number().int().min(1).optional(),
+  hasIssues: z.enum(["true", "false"]).optional(),
 });
 
 function duplicateSku(error: unknown): never {
@@ -421,6 +422,14 @@ export async function listProducts(db: Database, organizationId: string, input: 
   if (query.q) {
     const pattern = `%${escapeLike(query.q)}%`;
     filters.push(or(ilike(products.title, pattern), ilike(products.sku, pattern))!);
+  }
+  if (query.hasIssues) {
+    const exists = sql`exists (
+      select 1 from validation_issues
+      where validation_issues.product_id = ${products.id}
+        and validation_issues.status = 'open'
+    )`;
+    filters.push(query.hasIssues === "true" ? exists : sql`not ${exists}`);
   }
   if (query.cursor && query.sort === "updated_at") {
     let decoded: { updatedAt: string; id: string };
