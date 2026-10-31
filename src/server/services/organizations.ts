@@ -165,6 +165,8 @@ export async function createOrganization(
           entityId: org.id,
           action: "created",
         });
+        const { attachStarterSubscription } = await import("@/server/services/billing");
+        await attachStarterSubscription(tx as unknown as Database, org.id);
         return { ...publicOrg(org), role: "owner" as const };
       });
     } catch (error) {
@@ -284,6 +286,8 @@ export async function createInvite(
   if (!canAssignRole(actor.role, data.role)) {
     throw new ServiceError(403, "FORBIDDEN", "You cannot assign that role");
   }
+  const { assertCanInviteMember } = await import("@/server/services/billing");
+  await assertCanInviteMember(db, organizationId);
 
   const [existingMember] = await db
     .select({ id: organizationMembers.id })

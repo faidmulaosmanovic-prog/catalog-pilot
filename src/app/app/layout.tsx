@@ -65,6 +65,9 @@ async function WorkspaceFrame({ children }: { children: ReactNode }) {
           <Link className="underline" href="/app/settings/members">
             Members
           </Link>
+          <Link className="underline" href="/app/settings/billing">
+            Billing
+          </Link>
           <LogoutButton />
         </nav>
       </header>

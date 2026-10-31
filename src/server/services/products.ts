@@ -17,6 +17,7 @@ import {
 } from "@/server/db/schema/constants";
 import { categories } from "@/server/db/schema/catalog";
 import { recordActivity } from "@/server/services/activity-log";
+import { assertCanAddProduct, syncProductUsage } from "@/server/services/billing";
 import { ServiceError } from "@/server/services/organizations";
 
 const currencySchema = z.string().trim().regex(/^[A-Z]{3}$/);
@@ -301,6 +302,7 @@ export async function createProduct(
   try {
     return await db.transaction(async (tx) => {
       const database = tx as unknown as Database;
+      await assertCanAddProduct(database, organizationId);
       const [product] = await database
         .insert(products)
         .values({
@@ -344,6 +346,7 @@ export async function createProduct(
         action: "created",
         metadata: { sku: product.sku },
       });
+      await syncProductUsage(database, organizationId);
       return getProduct(database, organizationId, product.id);
     });
   } catch (error) {
@@ -593,6 +596,7 @@ export async function softDeleteProduct(
       entityId: productId,
       action: "deleted",
     });
+    await syncProductUsage(database, organizationId);
   });
 }
 

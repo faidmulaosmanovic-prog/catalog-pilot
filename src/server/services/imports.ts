@@ -538,6 +538,8 @@ export async function confirmImport(
       if (active.length > 0) {
         throw new ServiceError(409, "CONFLICT", "Another import is already running for this organization");
       }
+      const { recordImportExportJob } = await import("@/server/services/billing");
+      await recordImportExportJob(database, organizationId);
       await database
         .update(imports)
         .set({ status: "queued", idempotencyKey })

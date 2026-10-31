@@ -18,6 +18,7 @@ import type { TemplateSchema } from "@/server/exports/templates";
 import { exportObjectKey, putImportObject, readImportObject } from "@/server/imports/object-store";
 import { recordActivity } from "@/server/services/activity-log";
 import { createJobRun, updateJobRunStatus } from "@/server/services/job-runs";
+import { assertCanExportChannel, recordImportExportJob } from "@/server/services/billing";
 import { ServiceError } from "@/server/services/organizations";
 import { runValidation } from "@/server/services/quality";
 
@@ -148,6 +149,8 @@ export async function createExport(db: Database, actorUserId: string, organizati
     if (active.length > 0) {
       throw new ServiceError(409, "CONFLICT", "Another export is already running for this organization");
     }
+    await assertCanExportChannel(database, organizationId, data.channelCode);
+    await recordImportExportJob(database, organizationId);
     const [job] = await database
       .insert(exportJobs)
       .values({

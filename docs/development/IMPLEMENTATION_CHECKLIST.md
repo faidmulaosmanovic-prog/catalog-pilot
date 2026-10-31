@@ -148,17 +148,17 @@ See [DATABASE_PHASES.md](./DATABASE_PHASES.md) and [DEVELOPMENT_ROADMAP.md](./DE
 
 ## DB-8 — Billing (database first)
 
-- [ ] Migration: plans, plan_limits, subscriptions, usage_records  
-- [ ] Seed starter/growth/pro + limits (AI credits = 0 until V1.1)  
+- [x] Migration: plans, plan_limits, subscriptions, usage_records  
+- [x] Seed starter/growth/pro + limits (AI credits = 0 until V1.1)  
 
 ### Then Billing API → UI
 
-- [ ] Stripe customer per org  
-- [ ] Checkout + portal  
-- [ ] Webhook verify + idempotency  
-- [ ] Trial + usage meters  
-- [ ] Gate import/export/product create  
-- [ ] Billing UI  
+- [x] Stripe customer per org  
+- [x] Checkout + portal  
+- [x] Webhook verify + idempotency  
+- [x] Trial + usage meters  
+- [x] Gate import/export/product create  
+- [x] Billing UI  
 
 ---
 

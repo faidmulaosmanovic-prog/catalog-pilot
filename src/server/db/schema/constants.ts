@@ -111,3 +111,15 @@ export type ExportJobStatus = (typeof EXPORT_JOB_STATUSES)[number];
 
 export const LISTING_STATUSES = ["ready", "exported", "error"] as const;
 export type ListingStatus = (typeof LISTING_STATUSES)[number];
+
+export const SUBSCRIPTION_STATUSES = [
+  "trialing",
+  "active",
+  "past_due",
+  "canceled",
+  "incomplete",
+] as const;
+export type SubscriptionStatus = (typeof SUBSCRIPTION_STATUSES)[number];
+
+export const USAGE_METRICS = ["products", "import_export_jobs", "ai_credits"] as const;
+export type UsageMetric = (typeof USAGE_METRICS)[number];

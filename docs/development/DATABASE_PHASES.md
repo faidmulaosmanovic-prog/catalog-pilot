@@ -364,9 +364,13 @@ flowchart TD
 **Effort:** 2–3 sessions  
 
 **Acceptance criteria**
-- [ ] One subscription row per organization (unique)  
-- [ ] Limits readable by plan code without hardcoding in services  
-- [ ] Usage unique on `(organization_id, period_start, metric)`  
+- [x] One subscription row per organization (unique)  
+- [x] Limits readable by plan code without hardcoding in services  
+- [x] Usage unique on `(organization_id, period_start, metric)`  
+
+**Status:** Completed 2026-10-31 — `0009_db8_billing_usage.sql` (numbered 0009 because Phase 2 auth used 0003 and channels used 0008). Seeds Starter, Growth, and Pro. Product and monthly job caps follow the PRD table; Pro jobs are seeded at 500. AI credits are 0. Every plan’s `export_templates` value includes both MVP CSV templates so a trial can export Shopify and Amazon; the integer cap is data and can be lowered without a code change. New organizations start a 14-day Starter trial from `trial_days`. Checkout and the customer portal call Stripe when `STRIPE_SECRET_KEY` and a monthly price id are set. Webhooks are verified and ignored when the same event id was already applied. Product create, invites, import confirm, and export are blocked at the plan limit.
+
+**Tests:** one subscription per org; limits read from `plan_limits`; usage upsert stays one row; product and member gates; owner-only Checkout; webhook applied once  
 
 ---
 
