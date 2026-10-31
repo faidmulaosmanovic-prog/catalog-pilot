@@ -77,3 +77,28 @@ export const SCORE_WEIGHT: Record<Severity, number> = {
   warning: 3,
   info: 1,
 };
+
+export const BULK_OPERATIONS = [
+  "replace_text",
+  "append_text",
+  "prepend_text",
+  "update_price",
+  "update_brand",
+  "update_category",
+  "update_attributes",
+  "normalize",
+  "update_status",
+] as const;
+export type BulkOperation = (typeof BULK_OPERATIONS)[number];
+
+export const BULK_JOB_STATUSES = [
+  "queued",
+  "processing",
+  "completed",
+  "failed",
+  "rolled_back",
+] as const;
+export type BulkJobStatus = (typeof BULK_JOB_STATUSES)[number];
+
+export const BULK_TEXT_FIELDS = ["title", "description", "brand"] as const;
+export type BulkTextField = (typeof BULK_TEXT_FIELDS)[number];

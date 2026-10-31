@@ -297,8 +297,12 @@ flowchart TD
 **Effort:** 1–2 sessions  
 
 **Acceptance criteria**
-- [ ] Changes always include `organization_id` + `product_id`  
-- [ ] `can_rollback` flag supported on jobs  
+- [x] Changes always include `organization_id` + `product_id`  
+- [x] `can_rollback` flag supported on jobs  
+
+**Status:** Completed 2026-10-31 — `0007_db6_bulk_editor.sql` (numbered 0007 because Phase 2 auth used 0003). Jobs store the operation and config. Each changed product stores `before_json` and `after_json`, and both columns are required along with `organization_id` and `product_id`. `can_rollback` is true only after a completed apply that wrote snapshots. Preview does not write. Apply runs in the request, updates each changed product, stores its snapshot, records `bulk_edit.apply`, and writes a product revision with change source `bulk:{jobId}`. Editors can preview and apply. Admins can undo a completed job; products edited after the job are left alone. A filter that matches more than 500 products is rejected.
+
+**Tests:** text replace preview and apply; select-all-matching append; price percent undo restores the previous price; editor cannot undo; cross-org 404  
 
 ---
 

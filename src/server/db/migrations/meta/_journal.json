@@ -50,6 +50,13 @@
       "when": 1793398174944,
       "tag": "0006_db5_data_quality",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1793442816462,
+      "tag": "0007_db6_bulk_editor",
+      "breakpoints": true
     }
   ]
 }

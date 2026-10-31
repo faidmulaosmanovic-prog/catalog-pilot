@@ -11,6 +11,8 @@ export async function resetDatabase(db: Database) {
       import_mappings,
       validation_issues,
       validation_runs,
+      bulk_edit_changes,
+      bulk_edit_jobs,
       product_revisions,
       product_images,
       product_attributes,

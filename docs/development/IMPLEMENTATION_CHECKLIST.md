@@ -118,15 +118,15 @@ See [DATABASE_PHASES.md](./DATABASE_PHASES.md) and [DEVELOPMENT_ROADMAP.md](./DE
 
 ## DB-6 — Bulk editor (database first)
 
-- [ ] Migration: bulk_edit_jobs, bulk_edit_changes  
+- [x] Migration: bulk_edit_jobs, bulk_edit_changes  
 
 ### Then Bulk API → UI
 
-- [ ] Preview API  
-- [ ] Apply worker + operations set  
-- [ ] Rollback  
-- [ ] Bulk Editor UI + confirmations  
-- [ ] Audit logs  
+- [x] Preview API  
+- [x] Apply worker + operations set  
+- [x] Rollback  
+- [x] Bulk Editor UI + confirmations  
+- [x] Audit logs  
 
 ---
 

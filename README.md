@@ -4,7 +4,7 @@
 
 CatalogPilot helps ecommerce businesses clean, organize, validate, and prepare product catalogs for multiple sales channels — without spending hours managing spreadsheets.
 
-> **Status:** Implementation started — **DB-5 data quality** is in place (rules, scores, issues, Data Quality screen). Next schema phase is DB-6 bulk editor.
+> **Status:** Implementation started — **DB-6 bulk editor** is in place (preview, apply, undo). Next schema phase is DB-7 channels and export.
 
 ---
 
@@ -67,7 +67,7 @@ pnpm dev          # http://localhost:3000
 
 Delivery order is **schema → API → UI**. See:
 
-- [DATABASE_PHASES.md](docs/development/DATABASE_PHASES.md) — **DB-5 data quality is in place; next schema phase is DB-6 bulk editor**
+- [DATABASE_PHASES.md](docs/development/DATABASE_PHASES.md) — **DB-6 bulk editor is in place; next schema phase is DB-7 channels and export**
 - [DEVELOPMENT_ROADMAP.md](docs/development/DEVELOPMENT_ROADMAP.md)
 
 | Phase | Status |
@@ -79,7 +79,8 @@ Delivery order is **schema → API → UI**. See:
 | DB-3 Catalog core | Done |
 | DB-4 Import engine | Done |
 | DB-5 Data quality | Done |
-| DB-6 … DB-8 | Planned |
+| DB-6 Bulk editor | Done |
+| DB-7 … DB-8 | Planned |
 | DB-9 AI | V1.1 |
 
 ---

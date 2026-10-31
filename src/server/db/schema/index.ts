@@ -17,6 +17,7 @@ export { activityLogs, jobRuns } from "./audit";
 export { sessions, accounts, verifications } from "./auth-tables";
 export { imports, importMappings } from "./imports";
 export { validationRules, validationRuns, validationIssues } from "./quality";
+export { bulkEditJobs, bulkEditChanges } from "./bulk";
 export {
   categories,
   products,
