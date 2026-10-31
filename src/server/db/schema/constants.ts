@@ -123,3 +123,9 @@ export type SubscriptionStatus = (typeof SUBSCRIPTION_STATUSES)[number];
 
 export const USAGE_METRICS = ["products", "import_export_jobs", "ai_credits"] as const;
 export type UsageMetric = (typeof USAGE_METRICS)[number];
+
+export const FEEDBACK_KINDS = ["feedback", "bug"] as const;
+export type FeedbackKind = (typeof FEEDBACK_KINDS)[number];
+
+export const FEEDBACK_STATUSES = ["open", "triaged", "resolved", "wont_fix"] as const;
+export type FeedbackStatus = (typeof FEEDBACK_STATUSES)[number];

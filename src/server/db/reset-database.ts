@@ -13,6 +13,7 @@ export async function resetDatabase(db: Database) {
       validation_runs,
       channel_listings,
       export_jobs,
+      feedback_items,
       bulk_edit_changes,
       bulk_edit_jobs,
       product_revisions,

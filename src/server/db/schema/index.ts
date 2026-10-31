@@ -20,6 +20,7 @@ export { validationRules, validationRuns, validationIssues } from "./quality";
 export { bulkEditJobs, bulkEditChanges } from "./bulk";
 export { channels, marketplaceTemplates, channelListings, exportJobs } from "./channels";
 export { plans, planLimits, subscriptions, usageRecords } from "./billing";
+export { feedbackItems } from "./feedback";
 export {
   categories,
   products,

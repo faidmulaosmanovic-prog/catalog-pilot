@@ -175,10 +175,10 @@ See [DATABASE_PHASES.md](./DATABASE_PHASES.md) and [DEVELOPMENT_ROADMAP.md](./DE
 
 ## Phase 10 — Launch
 
-- [ ] Pilot outreach list  
-- [ ] Feedback log  
-- [ ] Bug triage board  
-- [ ] Decide Product Hunt timing  
+- [x] Pilot outreach list (empty tracker in `docs/launch/PILOT_OUTREACH.md`; no invented contacts)  
+- [x] Feedback log (`/app/feedback`)  
+- [x] Bug triage board (same log, kind `bug`, statuses open → triaged → resolved or wont_fix)  
+- [x] Decide Product Hunt timing (deferred until 10 external users and 3 weekly paid pilots)  
 
 ---
 
